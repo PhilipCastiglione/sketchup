@@ -1,0 +1,12 @@
+{
+  "Button": "1",
+  "CheckBox": "2",
+  "ComboBox": "3",
+  "Heading": "4",
+  "Image": "5",
+  "Label": "6",
+  "Link": "7",
+  "Paragraph": "8",
+  "RadioButton": "9",
+  "TextBox": "10"
+}
