@@ -59,10 +59,10 @@ def build_example(datum):
     image_format = b"png"
 
     regions = datum["regions"]
-    classes_xmins = [width * r["left"] for r in regions]
-    classes_xmaxs = [width * (r["left"] + r["width"]) for r in regions]
-    classes_ymins = [height * r["top"] for r in regions]
-    classes_ymaxs = [height * (r["top"] + r["height"]) for r in regions]
+    classes_xmins = [r["left"] for r in regions]
+    classes_xmaxs = [(r["left"] + r["width"]) for r in regions]
+    classes_ymins = [r["top"] for r in regions]
+    classes_ymaxs = [(r["top"] + r["height"]) for r in regions]
     classes_texts = [r["tagName"].encode('utf8') for r in regions]
     classes_labels = [int(label_map[r["tagName"]]) for r in regions]
 
