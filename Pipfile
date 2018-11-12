@@ -9,6 +9,13 @@ scikit-learn = "~=0.20"
 opencv-python = "~=3.4"
 pillow = "~=5.3"
 matplotlib = "~=3.0"
+six = "~=1.11"
+numpy = "~=1.15"
+scipy = "~=1.1"
+scikit-image = "~=0.14"
+imageio = "~=2.4"
+shapely = "~=1.6"
+imgaug = "~=0.2"
 
 [dev-packages]
 

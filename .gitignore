@@ -1,5 +1,7 @@
 # PROJECT SPECIFIC
 output.txt
+data/images/*AUGMENTED.png
+data/dataset.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
