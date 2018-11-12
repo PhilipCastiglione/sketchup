@@ -1,4 +1,6 @@
 """
+# PURPOSE
+
 Our image data can be augmented to improve our model:
 
     https://medium.com/nanonets/how-to-use-deep-learning-when-you-have-limited-data-part-2-data-augmentation-c26971dc8ced
@@ -15,9 +17,13 @@ The following transformations are performed, each at a rate r per image:
 - r = 0.25; salt and pepper (p = 0.1)
 - r = 1.0; affine rotate (-10 >= deg >= 10)
 
-USAGE
+# USAGE
 
 pipenv run python augment_data
+
+# NOTES
+
+Run over 150 images, another 150 images will be generated. This will take a few minutes.
 
 If generated images already exist they will be overwritten.
 

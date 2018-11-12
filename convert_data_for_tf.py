@@ -1,21 +1,23 @@
 """
+# PURPOSE
+
 Instructions on conversion to TensorFlow Record (note there are some errors):
     [conversion instructions](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/using_your_own_dataset.md)
 An example of usage:
     [raccoon dataset conversion](https://github.com/datitran/raccoon_dataset/blob/master/generate_tfrecord.py)
 
-USAGE
+# USAGE
 
 pipenv run python convert_data_for_tf.py
 
-Note: you probably don't need to do this because the TFRecords have been added
-to the repo in:
-    data/train.record
-    data/test.record
-"""
+# NOTES
 
-# TODO: include the augmented image data
-# TODO: holdout data segment
+This will split out records into the following files:
+    data/train.record (70%)
+    data/test.record (25%)
+
+And produce a list of validation records (5%) in data/validation.json.
+"""
 
 import sys
 sys.path.append('..') # the object_detection module is in our parent dir and we rely on that for relative imports
@@ -36,7 +38,8 @@ def write_label_file(label_map):
             f.write("}\n\n")
 
 def write_data_files(label_map, dataset):
-    train_data, test_data = train_test_split(dataset, test_size=0.2)
+    train_data, test_and_validation_data = train_test_split(dataset, test_size=0.3)
+    test_data, validation_data = train_test_split(test_and_validation_data, test_size=(0.05/0.3))
 
     for data, path in [(train_data, paths.OUTPUT_TRAIN), (test_data, paths.OUTPUT_TEST)]:
         tf_examples = [build_example(d) for d in data]
@@ -44,6 +47,9 @@ def write_data_files(label_map, dataset):
         with tf.python_io.TFRecordWriter(path) as writer:
             for ex in tf_examples:
                 writer.write(ex.SerializeToString())
+
+    with open(paths.VALIDATION_DATASET, 'w') as f:
+       [f.write(d["id"] + ".png\n") for d in validation_data]
 
 # refer to the input dataset to see the structure of a data record
 def build_example(datum):

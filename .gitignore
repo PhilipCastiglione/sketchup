@@ -1,7 +1,11 @@
-# PROJECT SPECIFIC
+# Project specific generated files
 output.txt
 data/images/*AUGMENTED.png
 data/dataset.json
+data/validation.json
+data/train.record
+data/test.record
+data/label_map.pbtext
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

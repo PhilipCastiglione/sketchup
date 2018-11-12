@@ -1,9 +1,13 @@
 """
+# PURPOSE
+
 For visualising training images with bounds around elements.
 
-USAGE
+# USAGE
 
 pipenv run python visualise_bounds.py <num_images>
+
+# NOTES
 
 You will be presented num_images randomly sampled images
 with boxes bounding labeled elements.
