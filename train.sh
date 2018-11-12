@@ -7,7 +7,7 @@ SAMPLE_1_OF_N_EVAL_EXAMPLES=1
 
 export PYTHONPATH=$PYTHONPATH:`pwd`/..:`pwd`/../slim
 
-echo "Starting to train... `date`"
+echo "Starting to train: `date`"
 
 pipenv run python ../object_detection/model_main.py \
     --pipeline_config_path=${PIPELINE_CONFIG_PATH} \
@@ -17,5 +17,5 @@ pipenv run python ../object_detection/model_main.py \
     --alsologtostderr \
     &> output.txt
 
-echo "Done training! refer to output.txt `date`"
+echo "Training complete (refer to output.txt): `date`"
 

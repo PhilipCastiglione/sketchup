@@ -103,7 +103,7 @@ def write_new_data(dataset, augmented_data, new_images):
     for idx, datum in enumerate(augmented_data):
         path = paths.IMAGES + datum["id"] + ".png"
         with open(path, 'wb') as f:
-            Image.fromarray(new_images[idx]).save(f, format="PNG", optimize=True)
+            Image.fromarray(new_images[idx]).save(f, format="PNG", optimize=True, dpi=[96,96])
 
     with open(paths.INPUT_DATASET, 'w') as f:
         json.dump(dataset + augmented_data, f, indent=2)
