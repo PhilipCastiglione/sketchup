@@ -14,24 +14,21 @@ to the repo in:
     data/test.record
 """
 
-DATA_FOLDER_PATH = "./data/"
-LABEL_MAP_PATH = DATA_FOLDER_PATH + "label_map.json"
-OUTPUT_LABEL_MAP_PATH = DATA_FOLDER_PATH + "label_map.pbtxt"
-INPUT_DATASET_PATH = DATA_FOLDER_PATH + "dataset.json"
-OUTPUT_TRAIN_PATH = DATA_FOLDER_PATH + "train.record"
-OUTPUT_TEST_PATH = DATA_FOLDER_PATH + "test.record"
-IMAGES_PATH = DATA_FOLDER_PATH + "images/"
+# TODO: include the augmented image data
+# TODO: holdout data segment
 
 import sys
-sys.path.append('..') # the object_detection module is in our parent dir and we rely on that
+sys.path.append('..') # the object_detection module is in our parent dir and we rely on that for relative imports
 
+import paths
 import tensorflow as tf
 from object_detection.utils import dataset_util
 from sklearn.model_selection import train_test_split
 import json
+from datetime import datetime
 
 def write_label_file(label_map):
-    with open(OUTPUT_LABEL_MAP_PATH, 'w') as f:
+    with open(paths.OUTPUT_LABEL_MAP, 'w') as f:
         for name, id in label_map.items():
             f.write("item {\n")
             f.write("  id: " + id + "\n")
@@ -41,7 +38,7 @@ def write_label_file(label_map):
 def write_data_files(label_map, dataset):
     train_data, test_data = train_test_split(dataset, test_size=0.2)
 
-    for data, path in [(train_data, OUTPUT_TRAIN_PATH), (test_data, OUTPUT_TEST_PATH)]:
+    for data, path in [(train_data, paths.OUTPUT_TRAIN), (test_data, paths.OUTPUT_TEST)]:
         tf_examples = [build_example(d) for d in data]
 
         with tf.python_io.TFRecordWriter(path) as writer:
@@ -53,7 +50,7 @@ def build_example(datum):
     height = datum["height"]
     width = datum["width"]
     filename = datum["id"] + ".png"
-    with open(IMAGES_PATH + filename, 'rb') as f:
+    with open(paths.IMAGES + filename, 'rb') as f:
         encoded_image_data = f.read()
     encoded_filename = filename.encode('utf8')
     image_format = b"png"
@@ -85,12 +82,15 @@ def build_example(datum):
 
 
 if __name__ == "__main__":
-    with open(LABEL_MAP_PATH, 'r') as f:
+    print("Conversion beginning: " + datetime.now().isoformat())
+
+    with open(paths.LABEL_MAP, 'r') as f:
         label_map = json.load(f)
 
-    with open(INPUT_DATASET_PATH, 'r') as f:
+    with open(paths.INPUT_DATASET, 'r') as f:
         dataset = json.load(f)
 
     write_label_file(label_map)
     write_data_files(label_map, dataset)
-    print("Conversion complete.")
+
+    print("Conversion complete: " + datetime.now().isoformat())

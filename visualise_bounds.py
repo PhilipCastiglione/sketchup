@@ -1,7 +1,7 @@
 """
 For visualising training images with bounds around elements.
 
-USAGE:
+USAGE
 
 pipenv run python visualise_bounds.py <num_images>
 
@@ -9,30 +9,14 @@ You will be presented num_images randomly sampled images
 with boxes bounding labeled elements.
 """
 
-DATA_FOLDER_PATH = "./data/"
-LABEL_MAP_PATH = DATA_FOLDER_PATH + "label_map.json"
-INPUT_DATASET_PATH = DATA_FOLDER_PATH + "dataset.json"
-IMAGES_PATH = DATA_FOLDER_PATH + "images/"
-
+import paths
 import json
 import sys
 import random
 import cv2
 from PIL import Image
 from matplotlib import colors
-
-try:
-    num_images = int(sys.argv[1])
-except:
-    print("USAGE:")
-    print("    pipenv run python visualise_bounds.py <num_images>")
-    exit(0)
-
-with open(LABEL_MAP_PATH, 'r') as f:
-    label_map = json.load(f)
-
-with open(INPUT_DATASET_PATH, 'r') as f:
-    dataset = json.load(f)
+from datetime import datetime
 
 def map_tags_to_random_colors():
     sampled_colors = random.sample(list(colors.CSS4_COLORS.values()), len(label_map))
@@ -41,10 +25,8 @@ def map_tags_to_random_colors():
     
     return dict(zip(label_map.keys(), scaled_rgb_colors))
 
-tag_colors = map_tags_to_random_colors()
-
 def image_with_bounds(datum):
-    file_path = IMAGES_PATH + datum["id"] + ".png"
+    file_path = paths.IMAGES + datum["id"] + ".png"
     image_array = cv2.imread(file_path)
     height = datum["height"]
     width = datum["width"]
@@ -65,7 +47,25 @@ def image_with_bounds(datum):
 
     return Image.fromarray(image_array)
 
-for datum in random.sample(dataset, num_images):
-    image_with_bounds(datum).show()
 
-print("Finished visualising bounds.")
+if __name__ == "__main__":
+    print("Visualisation beginning: " + datetime.now().isoformat())
+
+    with open(paths.LABEL_MAP, 'r') as f:
+        label_map = json.load(f)
+    with open(paths.INPUT_DATASET, 'r') as f:
+        dataset = json.load(f)
+
+    try:
+        num_images = int(sys.argv[1])
+    except:
+        print("USAGE:")
+        print("    pipenv run python visualise_bounds.py <num_images>")
+        exit(0)
+
+    tag_colors = map_tags_to_random_colors()
+
+    for datum in random.sample(dataset, num_images):
+        image_with_bounds(datum).show()
+
+    print("Visualisation complete: " + datetime.now().isoformat())
