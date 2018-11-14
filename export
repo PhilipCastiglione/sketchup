@@ -1,0 +1,27 @@
+#!/bin/bash
+: '
+TODO
+# PURPOSE
+# USAGE
+# NOTES
+'
+
+INPUT_TYPE="image_tensor"
+PIPELINE_CONFIG_PATH="models/model/sketchup.config"
+#TRAINED_CKPT_PREFIX={path to model.ckpt} # TODO
+TRAINED_CKPT_PREFIX="models/model/model.ckpt-1250"
+MODEL_DIR="models/model"
+
+export PYTHONPATH=$PYTHONPATH:`pwd`/..:`pwd`/../slim
+
+echo "Exporting: `date`"
+
+pipenv run python ../object_detection/export_inference_graph.py \
+    --input_type=${INPUT_TYPE} \
+    --pipeline_config_path=${PIPELINE_CONFIG_PATH} \
+    --trained_checkpoint_prefix=${TRAINED_CKPT_PREFIX} \
+    --output_directory=${MODEL_DIR} \
+    &> log/export.log
+
+echo "Exporting complete (details in log/export.log): `date`"
+

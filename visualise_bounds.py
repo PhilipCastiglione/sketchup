@@ -29,7 +29,7 @@ def map_tags_to_random_colors():
     
     return dict(zip(label_map.keys(), scaled_rgb_colors))
 
-def image_with_bounds(datum):
+def image_with_bounds(datum, tag_colors):
     file_path = paths.IMAGES + datum["id"] + ".png"
     image_array = cv2.imread(file_path)
     height = datum["height"]
@@ -70,6 +70,6 @@ if __name__ == "__main__":
     tag_colors = map_tags_to_random_colors()
 
     for datum in random.sample(dataset, num_images):
-        image_with_bounds(datum).show()
+        image_with_bounds(datum, tag_colors).show()
 
     print("Visualisation complete: " + datetime.now().isoformat())
