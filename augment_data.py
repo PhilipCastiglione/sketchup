@@ -15,7 +15,7 @@ The following transformations are performed, each at a rate r per image:
 - r = 0.5; crop + pad (crop and/or pad x,y -10% >= xy >= 10%)
 - r = 0.25; gaussian blur (0 >= sig >= 3.0)
 - r = 0.25; salt and pepper (p = 0.1)
-- r = 1.0; affine rotate (-10 >= deg >= 10)
+- r = 1.0; affine rotate (-5 >= deg >= 5)
 
 # USAGE
 
@@ -49,7 +49,7 @@ def build_augmentation_sequence():
     crop_pad = at_p_50(iaa.CropAndPad(percent=(-0.1,0.1), pad_mode=imgaug.ALL))
     blur = at_p_25(iaa.GaussianBlur(sigma=(0.0, 0.30)))
     salt_pepper = at_p_25(iaa.SaltAndPepper(0.1))
-    rotate = at_p_100(iaa.Affine(rotate=(-10, 10)))
+    rotate = at_p_100(iaa.Affine(rotate=(-5, 5)))
 
     seq = iaa.Sequential([scale, crop_pad, blur, salt_pepper, rotate], random_order=True)
     return seq.to_deterministic()

@@ -1,11 +1,18 @@
 # Project specific generated files
-output.txt
+predictions/*
+log/*
 data/images/*AUGMENTED.png
 data/dataset.json
 data/validation.json
 data/train.record
 data/test.record
-data/label_map.pbtext
+data/label_map.pbtxt
+models/model/checkpoint
+models/model/eval_0/
+models/model/events.out.tfevents.*
+models/model/export/
+models/model/graph.pbtxt
+models/model/model.ckpt-*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
