@@ -3,22 +3,23 @@ import os
 import imgaug
 from imgaug import augmenters
 
-from src.data_region import DataRegion
-from src.data_image import DataImage
+from src.dataset_image_region import DatasetImageRegion
+from src.dataset_image import DatasetImage
 
-class DataAugmenter:
-    def __init__(self, original_data):
-        self.data = original_data
+class DatasetAugmenter:
+    def __init__(self, original_dataset):
+        self.dataset = original_dataset
         self.new_images = []
         self.augmentation_sequence = self._build_augmentation_sequence()
 
     def augment(self):
         self.new_images = self._generate_augmented_images()
-        self.data.images += self.new_images
+        self.dataset.images += self.new_images
 
     def write(self):
-        [image.write() for image in self.new_images]
-        self.data.write()
+        for image in self.new_images:
+            image.write()
+        self.dataset.write()
 
     def _build_augmentation_sequence(self):
         # to make this deterministic for reproducibility, we could provide a known seed here:
@@ -39,9 +40,9 @@ class DataAugmenter:
     def _generate_augmented_images(self):
         def new_image(old_image, new_image_array, new_regions):
             new_id = old_image.guid + "AUGMENTED"
-            return DataImage(new_id, old_image.width, old_image.height, new_regions, new_image_array)
+            return DatasetImage(new_id, old_image.width, old_image.height, new_regions, new_image_array)
 
-        originals = self.data.images
+        originals = self.dataset.images
         arrays = self._augmented_image_arrays(originals)
         regions = self._augmented_regions(originals)
 
@@ -71,6 +72,6 @@ class DataAugmenter:
         return [to_bounding_box(r) for r in regions]
 
     def _bounding_boxes_to_regions(self, bounding_boxes):
-        to_region = lambda bb: DataRegion(bb.x1, bb.y1, bb.x2, bb.y2, bb.label)
+        to_region = lambda bb: DatasetImageRegion(bb.x1, bb.y1, bb.x2, bb.y2, bb.label)
         return [to_region(bb) for bb in bounding_boxes]
 

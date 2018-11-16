@@ -5,7 +5,7 @@ from PIL import Image
 
 from src import paths
 
-class DataImage:
+class DatasetImage:
     def __init__(self, guid, width, height, regions, image_array=None):
         self.guid = guid
         self.regions = regions
@@ -25,3 +25,4 @@ class DataImage:
 
     def filepath(self):
         return os.path.join(paths.IMAGES, self.filename())
+

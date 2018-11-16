@@ -2,14 +2,14 @@ from datetime import datetime
 import sys
 sys.path.append('.')
 
-from src.data import Data
-from src.data_tf_converter import DataTfConverter
+from src.dataset import Dataset
+from src.dataset_tf_converter import DatasetTfConverter
 
 if __name__ == "__main__":
     print("Conversion beginning: " + datetime.now().isoformat())
 
-    data = Data.load_input()
-    converter = DataTfConverter(data)
+    dataset = Dataset.load_input()
+    converter = DatasetTfConverter(dataset)
     converter.convert()
     converter.write()
 

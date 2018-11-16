@@ -1,14 +1,13 @@
 import json
 
 from src import paths
-from src.data_region import DataRegion
-from src.data_image import DataImage
+from src.dataset_image_region import DatasetImageRegion
+from src.dataset_image import DatasetImage
 
-class Data:
-    def __init__(self, images):
+class Dataset:
+    def __init__(self, images, label_map):
         self.images = images
-        with open(paths.LABEL_MAP, 'r') as f:
-            self.label_map = json.load(f)
+        self.label_map = label_map
 
     def load_input():
         with open(paths.INPUT_DATASET, 'r') as f:
@@ -19,10 +18,13 @@ class Data:
             guid = datum["id"]
             width = datum["width"]
             height = datum["height"]
-            regions = [DataRegion(r["x1"], r["y1"], r["x2"], r["y2"], r["label"]) for r in datum["regions"]]
-            images.append(DataImage(guid, width, height, regions))
+            regions = [DatasetImageRegion(r["x1"], r["y1"], r["x2"], r["y2"], r["label"]) for r in datum["regions"]]
+            images.append(DatasetImage(guid, width, height, regions))
 
-        return Data(images)
+        with open(paths.LABEL_MAP, 'r') as f:
+            label_map = json.load(f)
+
+        return Dataset(images, label_map)
 
     def load_original():
         with open(paths.ORIGINAL_DATASET, 'r') as f:
@@ -37,25 +39,38 @@ class Data:
                 x2 = x1 + datum["width"] * region["width"]
                 y2 = y1 + datum["height"] * region["height"]
                 label = region["tagName"]
-                regions.append(DataRegion(x1, y1, x2, y2, label))
+                regions.append(DatasetImageRegion(x1, y1, x2, y2, label))
 
             guid = datum["id"]
             width = datum["width"]
             height = datum["height"]
-            images.append(DataImage(guid, width, height, regions))
+            images.append(DatasetImage(guid, width, height, regions))
 
-        return Data(images)
+        with open(paths.LABEL_MAP, 'r') as f:
+            label_map = json.load(f)
+
+        return Dataset(images, label_map)
 
     def write(self):
         def image_data(image):
+            def region_data(region):
+                return {
+                    "x1": region.x1,
+                    "y1": region.y1,
+                    "x2": region.x2,
+                    "y2": region.y2,
+                    "label": region.label
+                }
+
             return {
                 "id": image.guid,
                 "width": image.width,
                 "height": image.height,
-                "regions": [r.__dict__ for r in image.regions]
+                "regions": [region_data(r) for r in image.regions]
             }
 
         dataset = [image_data(image) for image in self.images]
 
         with open(paths.INPUT_DATASET, 'w') as f:
             json.dump(dataset, f, indent=2)
+

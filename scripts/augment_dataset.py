@@ -2,14 +2,14 @@ from datetime import datetime
 import sys
 sys.path.append('.')
 
-from src.data import Data
-from src.data_augmenter import DataAugmenter
+from src.dataset import Dataset
+from src.dataset_augmenter import DatasetAugmenter
 
 if __name__ == "__main__":
     print("Augmentation beginning: " + datetime.now().isoformat())
 
-    data = Data.load_original()
-    augmenter = DataAugmenter(data)
+    dataset = Dataset.load_original()
+    augmenter = DatasetAugmenter(dataset)
     augmenter.augment()
     augmenter.write()
 
