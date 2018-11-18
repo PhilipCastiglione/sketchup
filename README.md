@@ -1,8 +1,29 @@
 # Sketchup
 
-PLACEHOLDER
+...
 
-# Setup
+# TODO
+
+Automate the ridiculous setup, at least for macOS and whatever the GPU machine runs, and make it robust.
+* readme
+    * document pipeline (provide a tool?)
+    * add credits
+    * document 149 data items, test, train validation split
+    * document setup
+    * document usage
+    * add FAQ
+    * add licence/disclaimers
+* rewrite the prediction, visualising from predictions
+* sUpeR AUGmentO
+* make it work on GPU
+* implement transfer learning
+* look at Mohamed's suggestions about a multiple model pipeline, to reduce the learning required by each model (currently all in one)
+* train the model on The Beast
+* validate it
+* build the second half, which takes the detected objects and -> DOM
+
+# NOTES (out of date)
+### Setup 
 
 Sketchup was built using macOS and Python 3.6.7 on top of the TensorFlow
 [Object Detection APIs](https://github.com/tensorflow/models/tree/master/research/object_detection).
@@ -99,9 +120,7 @@ Refer to [this issue](https://github.com/pyenv/pyenv-virtualenv/issues/140)
 and [this SO answer](https://stackoverflow.com/questions/49367013/pipenv-install-matplotlib)
 if more details are required.
 
-# Usage
-
-PLACEHOLDER
+### Usage
 
 ### Training
 
@@ -136,22 +155,9 @@ You may want to observe training using [TensorBoard](https://www.tensorflow.org/
 pipenv run tensorboard --logdir=models/model
 ```
 
-### Prediction
-
-PLACEHOLDER
-
 https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md
 
-# TODO
+### Prediction
 
-train the model
-validate it
-build the second half, which takes the detected objects and -> DOM
+...
 
-Automate the ridiculous setup, at least for macOS, and make it robust.
-readme
-document pipeline (provide a tool?)
-document 149 data items, test, train validation split
-credits
-FAQ
-licence/disclaimers
