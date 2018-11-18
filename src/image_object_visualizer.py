@@ -4,7 +4,7 @@ from matplotlib import colors
 from PIL import Image
 import cv2
 
-class DetectedObjectVisualizer:
+class ImageObjectVisualizer:
     def __init__(self, images, objects, scores, label_map):
         self.images = images
         self.objects = objects
