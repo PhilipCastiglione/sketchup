@@ -146,7 +146,8 @@ pipenv run python scripts/visualize_input_dataset.py 20
 ```
 
 This will display 20 of the training images randomly sampled from all of them,
-with bounding boxes drawn around labeled elements in the image.
+with bounding boxes drawn around labeled elements in the image. The bounding
+box colors are generated each run.
 
 #### Convert Data For TensorFlow
 
@@ -166,7 +167,7 @@ Details on TFRecord files can be found
 
 #### Train Object Detection Model
 
-Training the model can take a long time. The object detection APIs utilise
+Training the model can take a long time. The object detection APIs utilize
 checkpoints so that it can be trained incrementally. To train the model, we
 specify the (maximum) step number to train up to (100 in this example).
 
@@ -204,7 +205,28 @@ Details on exporting models can be found
 
 ### Prediction
 
-...
+#### Generating Predictions
+
+Generate a prediction for an image by passing a path to that image. Here
+we use an image from our validation set.
+
+```
+pipenv run python scripts/predict.py data/images/272.png
+```
+
+A folder will be created in `./predictions` with a timestamp containing
+`image.png` and `detections.json`.
+
+#### Visualizing Predictions
+
+To visualilze a prediction, pass the timestamp to the script.
+
+```
+pipenv run python scripts/visualize_prediction.py 1542554276
+```
+
+This will display the provided image and detected elements with
+bounding boxes, class names and confidence scores indicated.
 
 ## FAQ
 
@@ -231,9 +253,4 @@ This library is available as open source software under the terms of the
     * finish/update usage pipeline docs
     * add FAQ
 * build the second half, which takes the detected objects and -> DOM
-* remove notes, TODO
-
-### NOTES
-
-* currently only single prediction at a time, could do batch
 
