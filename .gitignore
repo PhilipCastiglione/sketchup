@@ -3,7 +3,7 @@ predictions/*
 log/*
 data/images/*
 data/dataset.json
-data/validation.json
+data/validation.txt
 data/train.record
 data/test.record
 data/label_map.pbtxt

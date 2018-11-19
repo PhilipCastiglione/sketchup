@@ -7,7 +7,7 @@ from object_detection.utils import dataset_util
 
 from src import paths
 
-class DatasetTfConverter:
+class TfConverter:
     def __init__(self, dataset):
         self.dataset = dataset
 
@@ -70,7 +70,7 @@ class DatasetTfConverter:
                 writer.write(ex.SerializeToString())
 
     def _write_validation_ids_file(self):
-        with open(paths.VALIDATION_DATASET, 'w') as f:
+        with open(paths.VALIDATION_IDS, 'w') as f:
             for id in self.validation_ids:
                 f.write(id + ".png\n")
 

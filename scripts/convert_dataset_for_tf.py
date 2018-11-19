@@ -3,13 +3,13 @@ import sys
 sys.path.append('.')
 
 from src.dataset import Dataset
-from src.dataset_tf_converter import DatasetTfConverter
+from src.tf_converter import TfConverter
 
 if __name__ == "__main__":
     print("Conversion beginning: " + datetime.now().isoformat())
 
     dataset = Dataset.load_input()
-    converter = DatasetTfConverter(dataset)
+    converter = TfConverter(dataset)
     converter.convert()
     converter.write()
 
