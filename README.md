@@ -2,9 +2,20 @@
 
 ...
 
+This project was inspired by work done by the Microsoft AI Lab in a project called
+[Sketch 2 Code](https://www.ailab.microsoft.com/experiments/30c61484-d081-4072-99d6-e132d362b99d)
+([code repository](https://github.com/Microsoft/ailab/tree/master/Sketch2Code))
+and an original [paper](https://arxiv.org/abs/1705.07962) and project by Tony
+Beltramelli called [pix2code](https://uizard.io/research/#pix2code)
+([code repository](https://github.com/tonybeltramelli/pix2code)).
+
 ## Dataset
 
 ...
+
+The dataset is made available thanks to the Microsoft AI Lab under the MIT License
+The AI Lab repository can be found [here](https://github.com/Microsoft/ailab) and
+the data [here](https://github.com/Microsoft/ailab/tree/master/Sketch2Code/model).
 
 ## Setup
 
@@ -176,13 +187,10 @@ https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc
 
 ...
 
-## Credit
-
-...
-
 ## License
 
-...
+This library is available as open source software under the terms of the
+[MIT License](http://opensource.org/licenses/MIT).
 
 ## TODO
 
@@ -198,9 +206,7 @@ https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc
     * document 149 data items, test, train validation split
     * finish/update setup docs
     * finish/update usage pipeline docs
-    * add credits
     * add FAQ
-    * add licence/disclaimers
 * build the second half, which takes the detected objects and -> DOM
 * remove notes, TODO
 
