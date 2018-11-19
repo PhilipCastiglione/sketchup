@@ -4,7 +4,15 @@
 
 # TODO
 
-Automate the ridiculous setup, at least for macOS and whatever the GPU machine runs, and make it robust.
+* massively increase augmentation
+* make it work on GPU
+* implement transfer learning
+* look at Mohamed's suggestions:
+    * reduce the label space from 10 classes
+    * multiple model pipeline, to reduce the learning required by each model (currently all in one)
+* train the model on The Beast
+* validate it
+* Automate the ridiculous setup, at least for macOS and whatever the GPU machine runs, and make it robust.
 * readme
     * document pipeline (provide a tool?)
     * add credits
@@ -13,16 +21,11 @@ Automate the ridiculous setup, at least for macOS and whatever the GPU machine r
     * document usage
     * add FAQ
     * add licence/disclaimers
-* rewrite the prediction, visualising from predictions
-* sUpeR AUGmentO
-* make it work on GPU
-* implement transfer learning
-* look at Mohamed's suggestions about a multiple model pipeline, to reduce the learning required by each model (currently all in one)
-* train the model on The Beast
-* validate it
 * build the second half, which takes the detected objects and -> DOM
 
 # NOTES (out of date)
+
+currently only single prediction at a time
 ### Setup 
 
 Sketchup was built using macOS and Python 3.6.7 on top of the TensorFlow

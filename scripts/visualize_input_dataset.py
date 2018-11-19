@@ -24,3 +24,4 @@ if __name__ == "__main__":
     visualizer.visualize()
 
     print("Visualisation complete: " + datetime.now().isoformat())
+

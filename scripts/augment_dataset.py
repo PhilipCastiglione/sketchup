@@ -14,3 +14,4 @@ if __name__ == "__main__":
     augmenter.write()
 
     print("Augmentation complete: " + datetime.now().isoformat())
+
