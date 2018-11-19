@@ -2,31 +2,11 @@
 
 ...
 
-# TODO
+## Dataset
 
-* massively increase augmentation
-* make it work on GPU
-* implement transfer learning
-* look at Mohamed's suggestions:
-    * reduce the label space from 10 classes
-    * multiple model pipeline, to reduce the learning required by each model (currently all in one)
-* train the model on The Beast
-* validate it
-* Automate the ridiculous setup, at least for macOS and whatever the GPU machine runs, and make it robust.
-* readme
-    * document pipeline (provide a tool?)
-    * add credits
-    * document 149 data items, test, train validation split
-    * document setup
-    * document usage
-    * add FAQ
-    * add licence/disclaimers
-* build the second half, which takes the detected objects and -> DOM
+...
 
-# NOTES (out of date)
-
-currently only single prediction at a time
-### Setup 
+## Setup
 
 Sketchup was built using macOS and Python 3.6.7 on top of the TensorFlow
 [Object Detection APIs](https://github.com/tensorflow/models/tree/master/research/object_detection).
@@ -123,34 +103,59 @@ Refer to [this issue](https://github.com/pyenv/pyenv-virtualenv/issues/140)
 and [this SO answer](https://stackoverflow.com/questions/49367013/pipenv-install-matplotlib)
 if more details are required.
 
-### Usage
+## Usage
 
 ### Training
 
-The first step is to generate augmentations to the original dataset:
+#### Data Augmentation
+
+First, augment the original image dataset.
 
 ```
-pipenv run python augment_data.py
+pipenv run python scripts/augment_dataset.py
 ```
 
-It is worthwhile visualising the training data:
+This will take the original 149 images in `./data/original_images/` and apply
+every combination of six stochastic augmentations. Bounding boxes are also
+transformed equivalently.
+
+Augmentations are applied using
+[this library](https://github.com/aleju/imgaug) as seen
+[here](src/augmenter.py#L16).
+
+A total of 9,536 images will now be in `./data/images/` and an augmented
+manifest will be at `./data/dataset.json`.
+
+#### Visualize Augmented Training Data
+
+It is recommended that you visualize labelled training data.
 
 ```
-pipenv run python visualise_bounds.py 10
+pipenv run python scripts/visualize_input_dataset.py 20
 ```
 
-From the images and our data manifests, we generate training data
-in the format required by TensorFlow Object Detection:
+This will display 20 of the training images randomly sampled from all of them,
+with bounding boxes drawn around labeled elements in the image.
+
+#### Convert Data For TensorFlow
+
+TensorFlow Object Detection requires a particular format for data, which
+we produce from our augmented images and json manifest.
 
 ```
-pipenv run python convert_data_for_tf
+pipenv run python scripts/convert_dataset_for_tf.py
 ```
 
-We are now in a position to train:
+This will produce `./data/train.record`, `./data/test.record` which are used
+by TensorFlow and `./data/validation.txt` which contains a list of images held
+out for evaluation of the trained model.
 
-```
-./train.sh
-```
+Details on TFRecord files can be found
+[here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/preparing_inputs.md).
+
+#### Train Object Detection Model
+
+...
 
 You may want to observe training using [TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard):
 
@@ -158,9 +163,48 @@ You may want to observe training using [TensorBoard](https://www.tensorflow.org/
 pipenv run tensorboard --logdir=models/model
 ```
 
+#### Export Trained Model
+
+...
 https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md
 
 ### Prediction
 
 ...
+
+## FAQ
+
+...
+
+## Credit
+
+...
+
+## License
+
+...
+
+## TODO
+
+* make it work on GPU
+* implement transfer learning
+* look at Mohamed's suggestions:
+    * reduce the label space from 10 classes
+    * multiple model pipeline, to reduce the learning required by each model (currently all in one)
+* train the model on The Beast
+* validate it
+* Automate the ridiculous setup, at least for macOS and whatever the GPU machine runs, and make it robust.
+* readme
+    * document 149 data items, test, train validation split
+    * finish/update setup docs
+    * finish/update usage pipeline docs
+    * add credits
+    * add FAQ
+    * add licence/disclaimers
+* build the second half, which takes the detected objects and -> DOM
+* remove notes, TODO
+
+### NOTES
+
+* currently only single prediction at a time, could do batch
 
