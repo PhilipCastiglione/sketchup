@@ -7,9 +7,11 @@ from PIL import Image
 from src import paths
 
 class PredictionImage:
-    def __init__(self, image_array, detections):
+    def __init__(self, image_array, width, height, detections):
         self.array = image_array
         self.detections = detections
+        self.width = width
+        self.height = height
         self.timestamp = str(int(datetime.utcnow().timestamp()))
 
     def write(self):

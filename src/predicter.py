@@ -35,7 +35,7 @@ class Predicter:
             score = output_dict['detection_scores'][i] * 100
             detections.append(PredictionImageDetection(x1, y1, x2, y2, label, score))
 
-        self.prediction = PredictionImage(self.image_array, detections)
+        self.prediction = PredictionImage(self.image_array, self.image_width, self.image_height, detections)
 
     def write(self):
         self.prediction.write()
