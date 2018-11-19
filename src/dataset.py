@@ -1,4 +1,7 @@
+import os
 import json
+
+import cv2
 
 from src import paths
 from src.dataset_image_region import DatasetImageRegion
@@ -44,12 +47,13 @@ class Dataset:
             guid = datum["id"]
             width = datum["width"]
             height = datum["height"]
-            images.append(DatasetImage(guid, width, height, regions))
+            image_array = cv2.imread(os.path.join(paths.ORIGINAL_IMAGES, guid + ".png"))
+            images.append(DatasetImage(guid, width, height, regions, image_array))
 
         with open(paths.LABEL_MAP, 'r') as f:
             label_map = json.load(f)
 
-        return Dataset(images, label_map)
+        return Dataset(images[:5], label_map)
 
     def write(self):
         def image_data(image):
@@ -73,4 +77,7 @@ class Dataset:
 
         with open(paths.INPUT_DATASET, 'w') as f:
             json.dump(dataset, f, indent=2)
+
+        for image in self.images:
+            image.write()
 

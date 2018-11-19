@@ -1,7 +1,7 @@
 # Project specific generated files
 predictions/*
 log/*
-data/images/*AUGMENTED.png
+data/images/*
 data/dataset.json
 data/validation.json
 data/train.record
