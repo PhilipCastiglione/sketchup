@@ -6,7 +6,7 @@ from imgaug import augmenters
 from src.dataset_image_region import DatasetImageRegion
 from src.dataset_image import DatasetImage
 
-class DatasetAugmenter:
+class Augmenter:
     def __init__(self, original_dataset):
         self.dataset = original_dataset
         self.new_images = []

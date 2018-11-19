@@ -3,13 +3,13 @@ import sys
 sys.path.append('.')
 
 from src.dataset import Dataset
-from src.dataset_augmenter import DatasetAugmenter
+from src.augmenter import Augmenter
 
 if __name__ == "__main__":
     print("Augmentation beginning: " + datetime.now().isoformat())
 
     dataset = Dataset.load_original()
-    augmenter = DatasetAugmenter(dataset)
+    augmenter = Augmenter(dataset)
     augmenter.augment()
     augmenter.write()
 
