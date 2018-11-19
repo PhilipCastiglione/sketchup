@@ -13,7 +13,7 @@ Beltramelli called [pix2code](https://uizard.io/research/#pix2code)
 
 ...
 
-The dataset is made available thanks to the Microsoft AI Lab under the MIT License
+The dataset is made available thanks to the Microsoft AI Lab under the MIT License.
 The AI Lab repository can be found [here](https://github.com/Microsoft/ailab) and
 the data [here](https://github.com/Microsoft/ailab/tree/master/Sketch2Code/model).
 
@@ -166,7 +166,20 @@ Details on TFRecord files can be found
 
 #### Train Object Detection Model
 
-...
+Training the model can take a long time. The object detection APIs utilise
+checkpoints so that it can be trained incrementally. To train the model, we
+specify the (maximum) step number to train up to (100 in this example).
+
+```
+pipenv run python scripts/train_model.py 100
+```
+
+TensorFlow will train from the last checkpoint (if available) up to the specified
+step. Numerous files will be created in `./models/model/`, the key ones are:
+
+* model.ckpt-100.data-00000-of-00001
+* model.ckpt-100.index
+* model.ckpt-100.meta
 
 You may want to observe training using [TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard):
 
@@ -176,8 +189,18 @@ pipenv run tensorboard --logdir=models/model
 
 #### Export Trained Model
 
-...
-https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md
+Once the model has been trained, we can export a frozen inference graph that we
+can use for prediction.
+
+```
+pipenv run python scripts/export_trained_model.py
+```
+
+The latest checkpoint will be exported, with the key output being
+`./models/model/frozen_inference_graph.pb`.
+
+Details on exporting models can be found
+[here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md)
 
 ### Prediction
 

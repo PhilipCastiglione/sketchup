@@ -14,6 +14,7 @@ IMAGES = os.path.join(data_path, "images")
 MODELS = os.path.join("models", "model")
 MODEL_CONFIG = os.path.join(MODELS, "sketchup.config")
 FROZEN_GRAPH = os.path.join(MODELS, "frozen_inference_graph.pb")
+EXTERNAL_TRAIN_SCRIPT = os.path.join("..", "object_detection", "model_main.py")
 EXTERNAL_EXPORT_SCRIPT = os.path.join("..", "object_detection", "export_inference_graph.py")
 PREDICTIONS = os.path.join("predictions")
 

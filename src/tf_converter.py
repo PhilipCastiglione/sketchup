@@ -28,10 +28,10 @@ class TfConverter:
         with open(image.filepath(), 'rb') as f:
             encoded_image_data = f.read()
 
-        classes_xmins = [r.x1 for r in image.regions]
-        classes_xmaxs = [r.x2 for r in image.regions]
-        classes_ymins = [r.y1 for r in image.regions]
-        classes_ymaxs = [r.y2 for r in image.regions]
+        classes_xmins = [r.x1 / image.width for r in image.regions]
+        classes_xmaxs = [r.x2 / image.width for r in image.regions]
+        classes_ymins = [r.y1 / image.height for r in image.regions]
+        classes_ymaxs = [r.y2 / image.height for r in image.regions]
         classes_texts = [r.label.encode('utf8') for r in image.regions]
         classes_labels = [int(self.dataset.label_map[r.label]) for r in image.regions]
 
