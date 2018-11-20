@@ -239,11 +239,10 @@ This library is available as open source software under the terms of the
 
 ## TODO
 
-* make it work on GPU
+* confirm usage of GPU on linux
 * implement transfer learning
-* look at Mohamed's suggestions:
-    * reduce the label space from 10 classes
-    * multiple model pipeline, to reduce the learning required by each model (currently all in one)
+* reduce the label space from 10 classes (initially, to one class)
+* MAYBE: multiple model pipeline, to reduce the learning required by each model (currently all in one)
 * train the model on The Beast
 * validate it
 * Automate the ridiculous setup, at least for macOS and whatever the GPU machine runs, and make it robust.

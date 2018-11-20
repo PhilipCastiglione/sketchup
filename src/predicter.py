@@ -45,7 +45,7 @@ class Predicter:
 
     def _run_inference_for_single_image(self):
         with self.detection_graph.as_default():
-            with tf.Session() as session:
+            with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as session:
                 # Get handles to input and output tensors
                 operations = tf.get_default_graph().get_operations()
                 all_tensor_names = {output.name for op in operations for output in op.outputs}

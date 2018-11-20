@@ -4,7 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-tensorflow = "~=1.12"
+tensorflow = {version = "~=1.12", sys_platform = "== 'darwin'"}
+tensorflow-gpu = {version = "~=1.12", sys_platform = "== 'linux'"}
 scikit-learn = "~=0.20"
 opencv-python = "~=3.4"
 pillow = "~=5.3"
