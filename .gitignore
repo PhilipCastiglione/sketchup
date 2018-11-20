@@ -1,6 +1,5 @@
 # Project specific generated files
 predictions/*
-log/*
 data/images/*
 data/dataset.json
 data/validation.txt
@@ -16,6 +15,8 @@ models/model/graph.pbtxt
 models/model/model.ckpt*
 models/model/frozen_inference_graph.pb
 models/model/pipeline.config
+models/model/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28.tar.gz
+models/model/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -84,6 +84,21 @@ git clone git@github.com:PhilipCastiglione/sketchup.git
 pipenv install
 ```
 
+### Transfer Learning
+
+So that training doesn't start form scratch, which takes a very long time for object detection models,
+we use a pretrained model from the
+[Tensorflow detection model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)
+as a starting point for our training.
+
+```
+curl http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28.tar.gz > models/model/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28.tar.gz
+tar -xzvf models/model/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28.tar.gz -C models/model/
+```
+
+[This example](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_pets.md#downloading-a-coco-pretrained-model-for-transfer-learning)
+also demonstrates the use of a pretrained model for transfer learning (though using GCP).
+
 ### macOS matplotlib virtualenv workaround
 
 If you are using macOS and pipenv (or virtualenv) then depending on how you have
@@ -240,7 +255,7 @@ This library is available as open source software under the terms of the
 ## TODO
 
 * confirm usage of GPU on linux
-* implement transfer learning
+* confirm effectiveness of transfer learning
 * reduce the label space from 10 classes (initially, to one class)
 * MAYBE: multiple model pipeline, to reduce the learning required by each model (currently all in one)
 * train the model on The Beast

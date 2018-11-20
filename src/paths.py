@@ -1,5 +1,8 @@
 import os
 
+# NOTE: currently a number of these paths are hard coded in models/model/sketchup.config
+# we could generate (or template) that file as a QOL/maintenance improvement
+
 data_path = "data"
 
 LABEL_MAP = os.path.join(data_path, "label_map.json")
