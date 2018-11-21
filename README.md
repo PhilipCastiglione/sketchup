@@ -141,6 +141,10 @@ First, augment the original image dataset.
 pipenv run python scripts/augment_dataset.py
 ```
 
+Note that the current default is to only include the "Button" label, the flag
+`--all-labels` can be passed to include all 10 classes. This flag will also
+need to be passed to the training script.
+
 This will take the original 149 images in `./data/original_images/` and apply
 every combination of six stochastic augmentations. Bounding boxes are also
 transformed equivalently.
@@ -189,6 +193,8 @@ specify the (maximum) step number to train up to (100 in this example).
 ```
 pipenv run python scripts/train_model.py 100
 ```
+
+If the data was augmented with the `--all-labels` flag, it will need to be passed here as well.
 
 TensorFlow will train from the last checkpoint (if available) up to the specified
 step. Numerous files will be created in `./models/model/`, the key ones are:
@@ -255,7 +261,6 @@ This library is available as open source software under the terms of the
 ## TODO
 
 * confirm usage of GPU on linux
-* reduce the label space from 10 classes (initially, to one class)
 * MAYBE: multiple model pipeline, to reduce the learning required by each model (currently all in one)
 * train the model on The Beast
 * validate it

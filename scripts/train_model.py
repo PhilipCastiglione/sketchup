@@ -9,10 +9,13 @@ if __name__ == "__main__":
     try:
         to_training_step = int(sys.argv[1])
     except:
-        print("USAGE: pipenv run python scripts/train_model.py <to_training_step>")
+        print("USAGE: pipenv run python scripts/train_model.py <to_training_step> [--all-labels]")
         exit(1)
 
     print("Training beginning: " + datetime.now().isoformat())
+
+    all_labels = '--all-labels' in sys.argv
+    model_config = paths.MODEL_CONFIG_ALL_LABELS if all_labels else paths.MODEL_CONFIG
 
     command = []
     command.append("PYTHONPATH=$PYTHONPATH:..:../slim")

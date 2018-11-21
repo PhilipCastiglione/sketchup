@@ -7,10 +7,11 @@ from src.dataset_image_region import DatasetImageRegion
 from src.dataset_image import DatasetImage
 
 class Augmenter:
-    def __init__(self, original_dataset):
+    def __init__(self, original_dataset, limit_labels=False):
         self.dataset = original_dataset
         self.new_images = []
         self.count = 0
+        self.limit_labels = limit_labels
 
     def augment(self):
         augmenters = [
@@ -29,7 +30,7 @@ class Augmenter:
         self.dataset.images += self.new_images
 
     def write(self):
-        self.dataset.write()
+        self.dataset.write(limit_labels=self.limit_labels)
 
     def _build_augmentation_sequence(self, augmenters):
         seq = imgaug.augmenters.Sequential(augmenters, random_order=True)

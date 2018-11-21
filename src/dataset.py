@@ -55,7 +55,7 @@ class Dataset:
 
         return Dataset(images[:5], label_map)
 
-    def write(self):
+    def write(self, limit_labels=False):
         def image_data(image):
             def region_data(region):
                 return {
@@ -66,11 +66,16 @@ class Dataset:
                     "label": region.label
                 }
 
+            if limit_labels:
+                regions = [r for r in image.regions if r.label == "Button"]
+            else:
+                regions = image.regions
+
             return {
                 "id": image.guid,
                 "width": image.width,
                 "height": image.height,
-                "regions": [region_data(r) for r in image.regions]
+                "regions": [region_data(r) for r in regions]
             }
 
         dataset = [image_data(image) for image in self.images]
