@@ -16,7 +16,7 @@ if __name__ == "__main__":
 
     command = []
     command.append("PYTHONPATH=$PYTHONPATH:..:../slim")
-    command.append("pipenv run python " + paths.EXTERNAL_TRAIN_SCRIPT)
+    command.append("python " + paths.EXTERNAL_TRAIN_SCRIPT)
     command.append("--pipeline_config_path='{}'".format(paths.MODEL_CONFIG))
     command.append("--model_dir='{}'".format(paths.MODELS))
     command.append("--num_train_steps={}".format(to_training_step))

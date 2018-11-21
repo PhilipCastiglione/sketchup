@@ -255,7 +255,6 @@ This library is available as open source software under the terms of the
 ## TODO
 
 * confirm usage of GPU on linux
-* confirm effectiveness of transfer learning
 * reduce the label space from 10 classes (initially, to one class)
 * MAYBE: multiple model pipeline, to reduce the learning required by each model (currently all in one)
 * train the model on The Beast
