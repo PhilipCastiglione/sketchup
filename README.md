@@ -222,7 +222,7 @@ The latest checkpoint will be exported, with the key output being
 `./models/model/frozen_inference_graph.pb`.
 
 Details on exporting models can be found
-[here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md)
+[here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md).
 
 ### Prediction
 
