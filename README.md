@@ -11,7 +11,23 @@ Beltramelli called [pix2code](https://uizard.io/research/#pix2code)
 
 ## Dataset
 
-...
+The original dataset consists of 149 images labeled with 10 classes and bounding
+boxes indicating the location of the instance of that class within the image.
+
+The images are of hand drawn sections of, or within, prototype user interfaces
+from hypothetical software applications. They are lower fidelity and less
+consistent than traditional wireframes and represent the kind of sketches
+often created on the fly during ideation phases of a project.
+
+The original images are located in the repo [here](tree/master/data/original_images)
+and the original labels and bounding boxes are [here](data/original_dataset.json).
+The set of labels is summarised [here](data/label_map.json).
+
+The dataset is augmented, as explained [below](#data-augmentation).
+
+After augmentation the data is separated into train, test and validation tranches
+in the ratio 70:25:5. Train and test are used for training of the object detection
+machine learning model and validation is held out for final analysis.
 
 The dataset is made available thanks to the Microsoft AI Lab under the MIT License.
 The AI Lab repository can be found [here](https://github.com/Microsoft/ailab) and
@@ -240,7 +256,7 @@ A folder will be created in `./predictions` with a timestamp containing
 
 #### Visualizing Predictions
 
-To visualilze a prediction, pass the timestamp to the script.
+To visualize a prediction, pass the timestamp to the script.
 
 ```
 pipenv run python scripts/visualize_prediction.py 1542554276
@@ -248,6 +264,20 @@ pipenv run python scripts/visualize_prediction.py 1542554276
 
 This will display the provided image and detected elements with
 bounding boxes, class names and confidence scores indicated.
+
+#### Generating a Web UI Prototype (Spike)
+
+For a prediction, a simple prototype web UI can be generated. Pass a timestamp
+to the script.
+
+```
+pipenv run python scripts/generate_prediction_web_spike.py 1542554276
+open predictions/1542628510/prediction.html
+```
+
+This will display the detected elements mapped to html in your default
+web browser. Hover over an element to view its location based on detected
+bounding box.
 
 ## FAQ
 
@@ -261,14 +291,19 @@ This library is available as open source software under the terms of the
 ## TODO
 
 * confirm usage of GPU on linux
-* MAYBE: multiple model pipeline, to reduce the learning required by each model (currently all in one)
+* confirm install instructions are complete when getting this running on linux
 * train the model on The Beast
+
 * validate it
+* iterate
+    * if results are good enough with 1 class, try with more
+    * if results are bad: multiple model pipeline, to reduce the learning required by each model (currently all in one)
+
 * Automate the ridiculous setup, at least for macOS and whatever the GPU machine runs, and make it robust.
 * readme
-    * document 149 data items, test, train validation split
+    * add preamble
     * finish/update setup docs
     * finish/update usage pipeline docs
     * add FAQ
-* build the second half, which takes the detected objects and -> DOM
+* build the second half properly, which takes the detected objects and -> intermediate representation -> DOM via a mapper, per target
 
