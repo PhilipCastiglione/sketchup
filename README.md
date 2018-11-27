@@ -97,6 +97,7 @@ can access object detection utilities.
 ```
 cd models/resarch
 git clone git@github.com:PhilipCastiglione/sketchup.git
+cd sketchup
 pipenv install
 ```
 
