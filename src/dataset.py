@@ -53,7 +53,7 @@ class Dataset:
         with open(paths.LABEL_MAP, 'r') as f:
             label_map = json.load(f)
 
-        return Dataset(images[:5], label_map)
+        return Dataset(images, label_map)
 
     def write(self, limit_labels=False):
         def image_data(image):
