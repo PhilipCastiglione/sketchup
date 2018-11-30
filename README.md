@@ -1,6 +1,15 @@
 # Sketchup
 
-...
+Sketchup a AI-UI project generating prototype application markup from hand drawn
+UI sketches.
+
+Sketchup takes a sketch of an application UI that looks something like this:
+![ui sketch](data/original_images/0bb2725b-88b4-4734-98f1-3d7d860434e9.png)
+
+Then uses TensorFlow object detection to identify UI elements within the sketch
+and their locations. The identified elements are transformed into prototype
+markup for a target technology stack. Currently, the only implemented target is
+the web.
 
 This project was inspired by work done by the Microsoft AI Lab in a project called
 [Sketch 2 Code](https://www.ailab.microsoft.com/experiments/30c61484-d081-4072-99d6-e132d362b99d)
@@ -38,7 +47,7 @@ the data [here](https://github.com/Microsoft/ailab/tree/master/Sketch2Code/model
 Sketchup was built using macOS and Python 3.6.7 on top of the TensorFlow
 [Object Detection APIs](https://github.com/tensorflow/models/tree/master/research/object_detection).
 
-I have used [pipenv](https://pipenv.readthedocs.io/) for dependency management,
+I have used [pipenv](https://pipenv.readthedocs.io/) for Python dependency management,
 but it isn't strictly required.
 
 ### TensorFlow Object Detection
@@ -279,38 +288,14 @@ to the script.
 
 ```
 pipenv run python scripts/generate_prediction_web_spike.py 1542554276
-open predictions/1542628510/prediction.html
+open predictions/1542554276/prediction.html
 ```
 
 This will display the detected elements mapped to html in your default
 web browser. Hover over an element to view its location based on detected
 bounding box.
 
-## FAQ
-
-...
-
 ## License
 
 This library is available as open source software under the terms of the
 [MIT License](http://opensource.org/licenses/MIT).
-
-## TODO
-
-* confirm usage of GPU on linux
-* confirm install instructions are complete when getting this running on linux
-* train the model on The Beast
-
-* validate it
-* iterate
-    * if results are good enough with 1 class, try with more
-    * if results are bad: multiple model pipeline, to reduce the learning required by each model (currently all in one)
-
-* Automate the ridiculous setup, at least for macOS and whatever the GPU machine runs, and make it robust.
-* readme
-    * add preamble
-    * finish/update setup docs
-    * finish/update usage pipeline docs
-    * add FAQ
-* build the second half properly, which takes the detected objects and -> intermediate representation -> DOM via a mapper, per target
-
