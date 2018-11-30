@@ -7,12 +7,13 @@ from src.prediction_image import PredictionImage
 from src.prediction_image_detection import PredictionImageDetection
 
 class Predicter:
-    def __init__(self, image_array, label_map):
+    def __init__(self, image_array, label_map, confidence_bound=70):
         self.image_array = image_array
         self.image_height = image_array.shape[0]
         self.image_width = image_array.shape[1]
         self.label_map = label_map
         self.detection_graph = tf.Graph()
+        self.confidence_bound = confidence_bound
 
     def predict(self):
         with self.detection_graph.as_default():
@@ -33,7 +34,8 @@ class Predicter:
             y2 *= self.image_height
             label = self._label_from_class(output_dict['detection_classes'][i])
             score = output_dict['detection_scores'][i] * 100
-            detections.append(PredictionImageDetection(x1, y1, x2, y2, label, score))
+            if score >= self.confidence_bound:
+                detections.append(PredictionImageDetection(x1, y1, x2, y2, label, score))
 
         self.prediction = PredictionImage(self.image_array, self.image_width, self.image_height, detections)
 

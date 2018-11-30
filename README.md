@@ -54,8 +54,14 @@ git clone git@github.com:tensorflow/models.git
 ```
 
 Note: at this time this prototype was built, the repo is at
-`d7ce21fa4d3b8b204530873ade75637e1313b760`. At this time, a bug exists that
-requires a workaround, if using Python 3. In
+`d7ce21fa4d3b8b204530873ade75637e1313b760`. Optionally:
+
+```
+cd models
+git reset --hard d7ce21fa4d3b8b204530873ade75637e1313b760
+```
+
+At this time, a bug exists that requires a workaround, if using Python 3. In
 `models/research/object_detection/model_lib.py` on line 418 the following change
 must be made:
 
